@@ -1,16 +1,17 @@
 import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by jegalsumin on 2016. 9. 8..
  */
 public class InsertionSort {
 
-    public InsertionSort() throws IOException{
+    //public InsertionSort() throws IOException{
 
 
 
 
-    }
+    //}
 
     public int[] insertionSorting(int[] inputArray){
         int[] outputArray = new int[inputArray.length];
@@ -25,5 +26,7 @@ public class InsertionSort {
             outputArray[outputArrayIndexforSorting+1] = key;
         }
         return outputArray;
+
     }
+    
 }
