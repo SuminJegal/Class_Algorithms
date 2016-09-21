@@ -1,12 +1,42 @@
 import java.io.IOException;
-import java.util.*;
+import java.io.StreamTokenizer;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 /**
  * Created by jegalsumin on 2016. 9. 8..
  */
 public class InsertionSort {
 
-    public int[] insertionSorting(int[] inputArray){
+    int[] inputArray;
+
+    public InsertionSort(String fileName) throws IOException{
+
+        int[] tempArray = new int[1000];
+        int arrayIndex = 0;
+
+        FileInputStream stream = new FileInputStream(fileName);
+        InputStreamReader reader = new InputStreamReader(stream);
+        StreamTokenizer token = new StreamTokenizer(reader);
+
+        while(true){
+            while(token.nextToken() != -1){
+                switch (token.ttype){
+                    case StreamTokenizer.TT_NUMBER:
+                        inputArray[arrayIndex++] = (int)token.nval;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            stream.close();
+            inputArray = new int[arrayIndex];
+            System.arraycopy(tempArray,0,inputArray,0,arrayIndex);
+            return;
+        }
+    }
+
+    public int[] insertionSorting(){
         int[] outputArray = new int[inputArray.length];
         outputArray[0] = inputArray[0];
         for(int inputArrayIndexforSorting=1; inputArrayIndexforSorting<inputArray.length; inputArrayIndexforSorting++){
@@ -22,7 +52,7 @@ public class InsertionSort {
 
     }
 
-    public int[] binaryInsertionSorting(int[] inputArray){
+    public int[] binaryInsertionSorting(){
         int[] outputArray = new int[inputArray.length];
         outputArray[0] = inputArray[0];
         for(int inputArrayIndexforSorting=1; inputArrayIndexforSorting<inputArray.length; inputArrayIndexforSorting++){
