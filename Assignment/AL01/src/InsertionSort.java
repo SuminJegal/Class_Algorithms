@@ -6,13 +6,6 @@ import java.util.*;
  */
 public class InsertionSort {
 
-    //public InsertionSort() throws IOException{
-
-
-
-
-    //}
-
     public int[] insertionSorting(int[] inputArray){
         int[] outputArray = new int[inputArray.length];
         outputArray[0] = inputArray[0];
