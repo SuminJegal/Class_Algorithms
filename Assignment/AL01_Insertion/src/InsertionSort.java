@@ -23,7 +23,7 @@ public class InsertionSort {
             while(token.nextToken() != -1){
                 switch (token.ttype){
                     case StreamTokenizer.TT_NUMBER:
-                        inputArray[arrayIndex++] = (int)token.nval;
+                        tempArray[arrayIndex++] = (int)token.nval;
                         break;
                     default:
                         break;
