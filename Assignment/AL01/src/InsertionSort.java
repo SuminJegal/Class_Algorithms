@@ -30,54 +30,45 @@ public class InsertionSort {
     }
 
     public int[] binaryInsertionSorting(int[] inputArray){
-        /*int[] outputArray = new int[inputArray.length];
-        boolean outputArrayCheck;
-        outputArray[0] = inputArray[0];*/
-
         int[] outputArray = new int[inputArray.length];
-        boolean[] outputArrayCheck;
         outputArray[0] = inputArray[0];
         for(int inputArrayIndexforSorting=1; inputArrayIndexforSorting<inputArray.length; inputArrayIndexforSorting++){
             int key = inputArray[inputArrayIndexforSorting];
-            if(key<outputArray[0]){
-                for(int outputIndexforCopy = inputArrayIndexforSorting; outputIndexforCopy>0; outputIndexforCopy--){
-                    outputArray[outputIndexforCopy] = outputArray[outputIndexforCopy-1];
-                }
+            int lastSortedIndexInOutputArray = inputArrayIndexforSorting-1;
+            if(outputArray[0]>key){
+                System.arraycopy(outputArray,0,outputArray,1,lastSortedIndexInOutputArray+1);
                 outputArray[0] = key;
             }
-            else if(key>=outputArray[inputArrayIndexforSorting-1]){
-                outputArray[inputArrayIndexforSorting-1] = key;
+            else if(key>=outputArray[0] && key<outputArray[lastSortedIndexInOutputArray]){
+                int indexOfFrontOfKey = binarySearch(outputArray,key,0,lastSortedIndexInOutputArray);
+                System.arraycopy(outputArray,indexOfFrontOfKey+1,outputArray,indexOfFrontOfKey+2,lastSortedIndexInOutputArray-indexOfFrontOfKey);
+                outputArray[indexOfFrontOfKey+1] = key;
             }
             else{
-                outputArrayCheck = new boolean[inputArray.length];
-                int binarytimes = 2;
-                int outputArrayIndexforSorting = inputArrayIndexforSorting/binarytimes;
-                while(outputArrayIndexforSorting>=0 && outputArray[outputArrayIndexforSorting]!=key){
-                    if(outputArrayCheck[outputArrayIndexforSorting]==true){
-                        break;
-                    }
-                    outputArrayCheck[outputArrayIndexforSorting] = true;
-                    binarytimes *= 2;
-                    if(key<outputArray[outputArrayIndexforSorting]) {
-                        outputArrayIndexforSorting =
-                                outputArrayIndexforSorting - (inputArrayIndexforSorting / binarytimes);
-                    }
-                    else {
-                        outputArrayIndexforSorting =
-                                outputArrayIndexforSorting + (inputArrayIndexforSorting / binarytimes);
-                    }
-                }
-                //outputArrayIndexforSorting += 1;
-                //if(outputArrayIndexforSorting<0){
-                //    outputArrayIndexforSorting = 0;
-                //}
-                for(int outputIndexforCopy = inputArrayIndexforSorting; outputIndexforCopy>outputArrayIndexforSorting; outputIndexforCopy--){
-                    outputArray[outputIndexforCopy] = outputArray[outputIndexforCopy-1];
-                }
-                outputArray[outputArrayIndexforSorting] = key;
+                outputArray[lastSortedIndexInOutputArray+1] = key;
             }
         }
         return outputArray;
+
+    }
+
+    private int binarySearch (int sortedArray[], int key, int startIndex, int endIndex)
+    {
+        if((startIndex+1)==endIndex){
+            return startIndex;
+        }
+
+        int indexSearch = startIndex + ((endIndex - startIndex) / 2);
+
+        if(key<sortedArray[indexSearch]){
+            return binarySearch(sortedArray,key,startIndex,indexSearch);
+        }
+        else if(key>sortedArray[indexSearch]){
+            return binarySearch(sortedArray,key,indexSearch,endIndex);
+        }
+        else{
+            return indexSearch;
+        }
 
     }
 
