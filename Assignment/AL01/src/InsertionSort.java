@@ -71,15 +71,6 @@ public class InsertionSort {
         }
 
     }
-
-    public static void main(String[] args){
-        InsertionSort i = new InsertionSort();
-        int[] input = {5, 2, 4, 6, 2, 3, 9, 8, 1, 7};
-        int[] expected = i.binaryInsertionSorting(input);
-        for(int k =0; k<expected.length; k++){
-            System.out.println(expected[k]);
-        }
-    }
     
 }
 
