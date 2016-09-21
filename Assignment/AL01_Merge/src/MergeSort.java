@@ -1,7 +1,50 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StreamTokenizer;
+
 /**
  * Created by jegalsumin on 2016. 9. 21..
  */
 public class MergeSort {
+
+    private int[] inputArray;
+
+    private int countHowManyTwoWayMerge;
+    private int countHowManyThreeWayMerge;
+
+    public MergeSort(String fileName) throws IOException {
+
+        countHowManyTwoWayMerge = 0;
+        countHowManyThreeWayMerge = 0;
+
+        int[] tempArray = new int[1000];
+        int arrayIndex = 0;
+
+        FileInputStream stream = new FileInputStream(fileName);
+        InputStreamReader reader = new InputStreamReader(stream);
+        StreamTokenizer token = new StreamTokenizer(reader);
+
+        while(true){
+            while(token.nextToken() != -1){
+                switch (token.ttype){
+                    case StreamTokenizer.TT_NUMBER:
+                        tempArray[arrayIndex++] = (int)token.nval;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            stream.close();
+            inputArray = new int[arrayIndex];
+            System.arraycopy(tempArray,0,inputArray,0,arrayIndex);
+            return;
+        }
+    }
+
+    public int[] twoWayMergeSorting(){
+        return twoWayMergeSorting(inputArray);
+    }
 
     public int[] twoWayMergeSorting(int[] inputArray){
         if(inputArray.length == 1){
@@ -23,6 +66,7 @@ public class MergeSort {
     }
 
     private int[] twoWayMerge(int[] inputArray1, int[] inputArray2){
+        countHowManyTwoWayMerge++;
         int[] outputArray = new int[(inputArray1.length+inputArray2.length)];
         int indexOfArray1=0, indexOfArray2=0;
         int indexOfOutput = 0;
@@ -45,6 +89,10 @@ public class MergeSort {
             System.arraycopy(inputArray1,indexOfArray1,outputArray,indexOfOutput, inputArray1.length-indexOfArray1);
         }
         return outputArray;
+    }
+
+    public int[] threeWayMergeSorting(){
+        return threeWayMergeSorting(inputArray);
     }
 
     public int[] threeWayMergeSorting(int[] inputArray){
@@ -93,6 +141,7 @@ public class MergeSort {
     }
 
     private int[] threeWayMerge(int[] inputArray1, int[] inputArray2, int[] inputArray3) {
+        countHowManyThreeWayMerge++;
         int[] outputArray = new int[(inputArray1.length+inputArray2.length+inputArray3.length)];
         int indexOfArray1=0, indexOfArray2=0, indexOfArray3=0;
         int indexOfOutput=0;
@@ -191,5 +240,13 @@ public class MergeSort {
             }
         }
         return smallest;
+    }
+
+    public int getCountHowManyTwoWayMerge() {
+        return countHowManyTwoWayMerge;
+    }
+
+    public int getCountHowManyThreeWayMerge() {
+        return countHowManyThreeWayMerge;
     }
 }
