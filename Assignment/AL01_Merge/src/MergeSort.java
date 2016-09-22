@@ -100,9 +100,11 @@ public class MergeSort {
             return inputArray;
         }
         else if(inputArray.length == 2){
-            int temp = inputArray[0];
-            inputArray[0] = inputArray[1];
-            inputArray[1] = inputArray[0];
+            if(inputArray[0]>inputArray[1]){
+                int temp = inputArray[0];
+                inputArray[0] = inputArray[1];
+                inputArray[1] = temp;
+            }
             return inputArray;
         }
         else{

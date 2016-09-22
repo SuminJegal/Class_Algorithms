@@ -26,10 +26,10 @@ public class SortingTest {
         for(int i =0; i<resurt_2_merge.length; i++){
             output_2_merge.write(resurt_2_merge[i]+",");
         }
-        output_2_merge.newLine();
-        output_2_merge.write("How many call the method 'merge'"+instance_merge.getCountHowManyTwoWayMerge());
         output_2_merge.close();
 
+
+        System.out.println("How many call the method 'merge'"+instance_merge.getCountHowManyTwoWayMerge());
 
         System.out.println("\n<3-way Merge Sort>");
         startTime = System.nanoTime();
@@ -44,11 +44,9 @@ public class SortingTest {
         for(int i =0; i<resurt_3_merge.length; i++){
             output_3_merge.write(resurt_3_merge[i]+",");
         }
-        output_3_merge.newLine();
-        output_3_merge.write("How many call the method 'merge'"+instance_merge.getCountHowManyThreeWayMerge());
         output_3_merge.close();
 
-
+        System.out.println("How many call the method '3 - way merge'"+instance_merge.getCountHowManyThreeWayMerge());
 
 
         MergeSort instance_10 = new MergeSort("hw02_10man.txt");
