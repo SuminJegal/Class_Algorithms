@@ -12,7 +12,7 @@ public class InsertionSort {
 
     public InsertionSort(String fileName) throws IOException{
 
-        int[] tempArray = new int[1000];
+        int[] tempArray = new int[10000000];
         int arrayIndex = 0;
 
         FileInputStream stream = new FileInputStream(fileName);

@@ -18,7 +18,7 @@ public class MergeSort {
         countHowManyTwoWayMerge = 0;
         countHowManyThreeWayMerge = 0;
 
-        int[] tempArray = new int[1000];
+        int[] tempArray = new int[10000000];
         int arrayIndex = 0;
 
         FileInputStream stream = new FileInputStream(fileName);
@@ -100,7 +100,10 @@ public class MergeSort {
             return inputArray;
         }
         else if(inputArray.length == 2){
-            return twoWayMergeSorting(inputArray);
+            int temp = inputArray[0];
+            inputArray[0] = inputArray[1];
+            inputArray[1] = inputArray[0];
+            return inputArray;
         }
         else{
             int remainder = inputArray.length%3;
