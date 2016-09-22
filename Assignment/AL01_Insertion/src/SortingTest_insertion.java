@@ -1,98 +1,83 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 /**
- * Created by jegalsumin on 2016. 9. 22..
+ * Created by jegalsumin on 2016. 9. 21..
  */
-public class SortingTest {
+public class SortingTest_insertion {
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
 
-        long startTime, endTime;
+        long startTime,endTime;
 
-        MergeSort instance_merge = new MergeSort("data02.txt");
+        InsertionSort instanceForSorting = new InsertionSort("data02.txt");
+        InsertionSort instance_10 = new InsertionSort("hw02_10man.txt");
+        InsertionSort instance_100 = new InsertionSort("hw02_100man.txt");
 
-        System.out.println("\n<Merge Sort>");
+        System.out.println("\n<Insertion Sort>");
         startTime = System.nanoTime();
-        int[] resurt_2_merge = instance_merge.twoWayMergeSorting();
+        int[] resurt_insertion = instanceForSorting.insertionSorting();
         endTime = System.nanoTime();
         System.out.println("start nano time : "+startTime);
         System.out.println("end nano time   : "+endTime);
         System.out.println("--------------------------------------");
         System.out.println("total nano time : "+(endTime-startTime));
 
-        BufferedWriter output_2_merge= new BufferedWriter(new FileWriter("hw02_01_201202287_merge.txt"));
-        for(int i =0; i<resurt_2_merge.length; i++){
-            output_2_merge.write(resurt_2_merge[i]+",");
+        System.out.println("\n<Binary insertion Sort>");
+        startTime = System.nanoTime();
+        int[] resurt_binaryInsertion = instanceForSorting.binaryInsertionSorting();
+        endTime = System.nanoTime();
+        System.out.println("start nano time : "+startTime);
+        System.out.println("end nano time   : "+endTime);
+        System.out.println("--------------------------------------");
+        System.out.println("total nano time : "+(endTime-startTime));
+
+        BufferedWriter output_insertion = new BufferedWriter(new FileWriter("hw02_01_201202287_insertion.txt"));
+        for(int i =0; i<resurt_insertion.length; i++){
+            output_insertion.write(resurt_insertion[i]+",");
         }
-        output_2_merge.close();
+        output_insertion.close();
 
-
-        System.out.println("How many call the method 'merge'"+instance_merge.getCountHowManyTwoWayMerge());
-
-        System.out.println("\n<3-way Merge Sort>");
-        startTime = System.nanoTime();
-        int[] resurt_3_merge = instance_merge.threeWayMergeSorting();
-        endTime = System.nanoTime();
-        System.out.println("start nano time : "+startTime);
-        System.out.println("end nano time   : "+endTime);
-        System.out.println("--------------------------------------");
-        System.out.println("total nano time : "+(endTime-startTime));
-
-        BufferedWriter output_3_merge= new BufferedWriter(new FileWriter("hw02_01_201202287_3way_merge.txt"));
-        for(int i =0; i<resurt_3_merge.length; i++){
-            output_3_merge.write(resurt_3_merge[i]+",");
+        BufferedWriter output_binaryInsertion = new BufferedWriter(new FileWriter("hw02_01_201202287_binary_insertion.txt"));
+        for(int i =0; i<resurt_binaryInsertion.length; i++){
+            output_binaryInsertion.write(resurt_binaryInsertion[i]+",");
         }
-        output_3_merge.close();
+        output_binaryInsertion.close();
 
-        System.out.println("How many call the method '3 - way merge'"+instance_merge.getCountHowManyThreeWayMerge());
-
-
-        MergeSort instance_10 = new MergeSort("hw02_10man.txt");
-
-        System.out.println("\n<10man Merge Sort>");
+        System.out.println("\n<10 Insertion Sort>");
         startTime = System.nanoTime();
-        instance_10.twoWayMergeSorting();
+        instance_10.insertionSorting();
         endTime = System.nanoTime();
         System.out.println("start nano time : "+startTime);
         System.out.println("end nano time   : "+endTime);
         System.out.println("--------------------------------------");
         System.out.println("total nano time : "+(endTime-startTime));
 
-        System.out.println("\n<10 man 3-way Merge Sort>");
+        System.out.println("\n<10 Binary insertion Sort>");
         startTime = System.nanoTime();
-        instance_10.threeWayMergeSorting();
+        instance_10.binaryInsertionSorting();
         endTime = System.nanoTime();
         System.out.println("start nano time : "+startTime);
         System.out.println("end nano time   : "+endTime);
         System.out.println("--------------------------------------");
         System.out.println("total nano time : "+(endTime-startTime));
 
-
-        MergeSort instance_100 = new MergeSort("hw02_100man.txt");
-
-        System.out.println("\n<100man Merge Sort>");
+        System.out.println("\n<100 Insertion Sort>");
         startTime = System.nanoTime();
-        instance_100.twoWayMergeSorting();
+        instance_100.insertionSorting();
         endTime = System.nanoTime();
         System.out.println("start nano time : "+startTime);
         System.out.println("end nano time   : "+endTime);
         System.out.println("--------------------------------------");
         System.out.println("total nano time : "+(endTime-startTime));
 
-        System.out.println("\n<100 man 3-way Merge Sort>");
+        System.out.println("\n<100 Binary insertion Sort>");
         startTime = System.nanoTime();
-        instance_100.threeWayMergeSorting();
+        instance_100.binaryInsertionSorting();
         endTime = System.nanoTime();
         System.out.println("start nano time : "+startTime);
         System.out.println("end nano time   : "+endTime);
         System.out.println("--------------------------------------");
         System.out.println("total nano time : "+(endTime-startTime));
-
-
-
-
 
     }
 }
