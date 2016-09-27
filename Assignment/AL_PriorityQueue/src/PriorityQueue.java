@@ -2,6 +2,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
+import java.util.Scanner;
 
 /**
  * Created by jegalsumin on 2016. 9. 25..
@@ -40,11 +41,9 @@ public class PriorityQueue {
         heap = new Heap(heapLength);
         for(int i = 0; tempArray[i] != null; i++){
             heap.node[i] = tempArray[i];
-            System.out.println("key: "+ heap.node[i].getKey() + ", value : "+heap.node[i].getValue());
         }
 
         heap.buildMaxHeap();
-        heap.maxHeapify();
 
     }
 
@@ -52,11 +51,12 @@ public class PriorityQueue {
 
     }
 
-    public String max(){
-        return null;
+    public Node max(){
+        return heap.node[0];
     }
 
     public void extract_max(){
+
 
     }
 
@@ -65,7 +65,7 @@ public class PriorityQueue {
     }
 
     public void h_delete(String x){
-        
+
     }
 
 
@@ -77,12 +77,43 @@ public class PriorityQueue {
             node = new Node[length];
         }
 
-        private void maxHeapify(){
+        private void maxHeapify(int index){
+            int largest;
+            int left_child = this.leftChild(index);
+            int right_child = this.rightChild(index);
+            if(left_child<=(node.length-1) && node[left_child].getKey() > node[node.length-1].getKey()){
+                largest = left_child;
+            }
+            else{
+                largest = index;
+            }
+            if(right_child<=(node.length-1) && node[right_child].getKey() > node[largest].getKey()){
+                largest = right_child;
+            }
+            if(largest != index){
+                Node temp = node[index];
+                node[index] = node[largest];
+                node[largest] = temp;
+                maxHeapify(largest);
+            }
+        }
 
+        int leftChild(int index){
+            return (index+1)*2-1;
+        }
+
+        int rightChild(int index){
+            return (index+1)*2;
+        }
+
+        int parent(int index){
+            return (index-1)/2;
         }
 
         private void buildMaxHeap(){
-
+            for(int i=parent(node.length-1); i > 0; i--){
+                this.maxHeapify(i);
+            }
         }
     }
 
@@ -108,10 +139,38 @@ public class PriorityQueue {
         public void setKey(int key) {
             this.key = key;
         }
+
+        public String toString(){
+            return key +", "+ value;
+        }
     }
 
     public static void main (String[] args) throws IOException{
+        Scanner scan = new Scanner(System.in);
         PriorityQueue p = new PriorityQueue("data03.txt");
+        int input=0;
+        do{
+            switch (input){
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+            }
+            for(int i=0; i<p.heap.node.length; i++){
+                System.out.println(p.heap.node[i]);
+            }
+            System.out.println("--------------------------------------");
+            System.out.println("1.작업추가 2.최대값 3.최대값제거 4.원소키값증가 5.작업제거 6.종료");
+            input = scan.nextInt();
+        } while(input == 6);
     }
 
 
