@@ -10,13 +10,14 @@ import java.util.Scanner;
 public class PriorityQueue {
 
     Heap heap;
-    int heapLength = 0;
 
     public PriorityQueue(String fileName) throws IOException {
 
+        int heapLength = 0;
         int arraytempArrayIndex = -1;
         Node[] tempArray = new Node[20];
 
+        //read tokens from txt file
         FileInputStream stream = new FileInputStream(fileName);
         InputStreamReader reader = new InputStreamReader(stream);
         StreamTokenizer token = new StreamTokenizer(reader);
@@ -55,7 +56,7 @@ public class PriorityQueue {
             }
         }
         heap.insert(value, key);
-        heap.afterChangeTheMiddleValue_heapify(heap.parent(heap.node.length-1));
+        heap.afterChangeTheMiddlKey_heapify(heap.parent(heap.node.length-1));
     }
 
     public Node max(){
@@ -81,7 +82,7 @@ public class PriorityQueue {
             return;
         }
         heap.node[valueIndex].setKey(key);
-        heap.afterChangeTheMiddleValue_heapify(valueIndex);
+        heap.afterChangeTheMiddlKey_heapify(valueIndex);
 
     }
 
@@ -99,7 +100,7 @@ public class PriorityQueue {
         }
         heap.swap(valueIndex,heap.node.length-1);
         heap.remove();
-        heap.afterChangeTheMiddleValue_heapify(valueIndex);
+        heap.afterChangeTheMiddlKey_heapify(valueIndex);
     }
 
 
@@ -151,24 +152,28 @@ public class PriorityQueue {
             }
         }
 
+        //method for swap
         void swap(int index1, int index2){
             Node temp = node[index1];
             node[index1] = node[index2];
             node[index2] = temp;
         }
 
+        //method for remove the last node
         void remove(){
             Node[] newNodes = new Node[this.node.length-1];
             System.arraycopy(this.node,0,newNodes,0,this.node.length-1);
             this.node = newNodes;
         }
 
-        void afterChangeTheMiddleValue_heapify(int index){
+        //method for heap if the key in the heap was changed
+        void afterChangeTheMiddlKey_heapify(int index){
             for(int i = index; i>=0; i=parent(i)){
                 this.maxHeapify(i);
             }
         }
 
+        //method for insert
         void insert(String value, int key){
             Node[] newNodes = new Node[this.node.length+1];
             System.arraycopy(this.node,0,newNodes,0,this.node.length);
