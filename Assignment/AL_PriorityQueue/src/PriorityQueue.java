@@ -48,7 +48,14 @@ public class PriorityQueue {
     }
 
     public void insert(String value, int key){
-
+        for(int i=0; i<heap.node.length; i++){
+            if(heap.node[i].getValue().equals(value)){
+                System.out.println("aleady exist!");
+                return;
+            }
+        }
+        heap.insert(value, key);
+        heap.afterChangeTheMiddleValue_heapify(heap.parent(heap.node.length-1));
     }
 
     public Node max(){
@@ -56,16 +63,43 @@ public class PriorityQueue {
     }
 
     public void extract_max(){
-
-
+        heap.swap(0, heap.node.length-1);
+        heap.remove();
+        heap.maxHeapify(0);
     }
 
     public void increase_key(String value, int key){
+        int valueIndex=-1;
+        for(int i=0; i<heap.node.length; i++){
+            if(heap.node[i].getValue().equals(value)){
+                valueIndex = i;
+                break;
+            }
+        }
+        if(valueIndex==-1){
+            System.out.println("wrong input!");
+            return;
+        }
+        heap.node[valueIndex].setKey(key);
+        heap.afterChangeTheMiddleValue_heapify(valueIndex);
 
     }
 
-    public void h_delete(String x){
-
+    public void h_delete(String value){
+        int valueIndex=-1;
+        for(int i=0; i<heap.node.length; i++){
+            if(heap.node[i].getValue().equals(value)){
+                valueIndex = i;
+                break;
+            }
+        }
+        if(valueIndex==-1){
+            System.out.println("wrong input!");
+            return;
+        }
+        heap.swap(valueIndex,heap.node.length-1);
+        heap.remove();
+        heap.afterChangeTheMiddleValue_heapify(valueIndex);
     }
 
 
@@ -77,7 +111,7 @@ public class PriorityQueue {
             node = new Node[length];
         }
 
-        private void maxHeapify(int index){
+        void maxHeapify(int index){
             int largest;
             int left_child = this.leftChild(index);
             int right_child = this.rightChild(index);
@@ -91,9 +125,7 @@ public class PriorityQueue {
                 largest = right_child;
             }
             if(largest != index){
-                Node temp = node[index];
-                node[index] = node[largest];
-                node[largest] = temp;
+                swap(index,largest);
                 maxHeapify(largest);
             }
         }
@@ -107,13 +139,41 @@ public class PriorityQueue {
         }
 
         int parent(int index){
-            return (index-1)/2;
+            if(index%2==0){
+                return (index/2)-1;
+            }
+            return index/2;
         }
 
-        private void buildMaxHeap(){
+        void buildMaxHeap(){
             for(int i=parent(node.length-1); i >= 0; i--){
                 this.maxHeapify(i);
             }
+        }
+
+        void swap(int index1, int index2){
+            Node temp = node[index1];
+            node[index1] = node[index2];
+            node[index2] = temp;
+        }
+
+        void remove(){
+            Node[] newNodes = new Node[this.node.length-1];
+            System.arraycopy(this.node,0,newNodes,0,this.node.length-1);
+            this.node = newNodes;
+        }
+
+        void afterChangeTheMiddleValue_heapify(int index){
+            for(int i = index; i>=0; i=parent(i)){
+                this.maxHeapify(i);
+            }
+        }
+
+        void insert(String value, int key){
+            Node[] newNodes = new Node[this.node.length+1];
+            System.arraycopy(this.node,0,newNodes,0,this.node.length);
+            this.node = newNodes;
+            node[node.length-1] = new Node(key, value);
         }
     }
 
@@ -121,6 +181,15 @@ public class PriorityQueue {
 
         int key;
         String value;
+
+        Node() {
+
+        }
+
+        Node(int key, String value){
+            this.key = key;
+            this.value = value;
+        }
 
         public String getValue() {
             return value;
@@ -150,13 +219,16 @@ public class PriorityQueue {
         PriorityQueue p = new PriorityQueue("data03.txt");
         int input=0;
         do{
+            String inputValue;
+            int inputKey;
             switch (input){
                 case 1:
                     System.out.print("추가시킬 과목 : ");
-                    String inputValue = scan.nextLine();
+                    inputValue = scan.nextLine();
                     System.out.print("추가시킬 값 : ");
-                    int inputKey = scan.nextInt();
+                    inputKey = scan.nextInt();
                     p.insert(inputValue, inputKey);
+                    System.out.println();
                     break;
                 case 2:
                     System.out.println("max : " + p.max());
@@ -164,6 +236,7 @@ public class PriorityQueue {
                     break;
                 case 3:
                     p.extract_max();
+                    System.out.println();
                     break;
                 case 4:
                     System.out.print("증가시킬 과목 : ");
@@ -171,11 +244,13 @@ public class PriorityQueue {
                     System.out.print("증가시킬 값 : ");
                     inputKey = scan.nextInt();
                     p.increase_key(inputValue, inputKey);
+                    System.out.println();
                     break;
                 case 5:
                     System.out.print("제거시킬 과목 : ");
                     inputValue = scan.nextLine();
                     p.h_delete(inputValue);
+                    System.out.println();
                     break;
                 default:
                     break;
@@ -187,6 +262,7 @@ public class PriorityQueue {
             System.out.println("1.작업추가 2.최대값 3.최대값제거 4.원소키값증가 5.작업제거 6.종료");
             input = scan.nextInt();
             System.out.println("--------------------------------------");
+            scan.nextLine();
         } while(input != 6);
     }
 
