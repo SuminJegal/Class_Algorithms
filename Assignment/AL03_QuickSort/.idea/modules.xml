@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AL_PriorityQueue.iml" filepath="$PROJECT_DIR$/AL_PriorityQueue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AL03_QuickSort.iml" filepath="$PROJECT_DIR$/AL03_QuickSort.iml" />
     </modules>
   </component>
 </project>
