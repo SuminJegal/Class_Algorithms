@@ -28,6 +28,12 @@ public class QuickSort {
         stream.close();
     }
 
+    /**
+     *
+     * change the value of array[i] and array[j]
+     * @param i
+     * @param j
+     */
     private void swap(int i, int j){
         int temp = inputArray[i];
         inputArray[i] = inputArray[j];
@@ -112,6 +118,11 @@ public class QuickSort {
         }
     }
 
+    /**
+     * method for write output on file.
+     * @param fileName
+     * @throws IOException
+     */
     public void writeOnFile(String fileName) throws IOException {
         BufferedWriter output = new BufferedWriter(new FileWriter(fileName));
         for(int i =0; i<inputArrayLength; i++){
