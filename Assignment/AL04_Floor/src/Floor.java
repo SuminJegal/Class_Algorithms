@@ -42,7 +42,7 @@ public class Floor {
             checkValue[e] = k;
         }while(k.compareTo(BigInteger.valueOf(input)) <= 0);
         while((e-beforeE)>1){
-        int gap = e - beforeE;
+            int gap = e - beforeE;
             gap = gap/2;
             checkValue[beforeE+gap] = checkValue[e].divide(checkValue[gap]);
             if(checkValue[beforeE+gap].compareTo(BigInteger.valueOf(input))==0){
