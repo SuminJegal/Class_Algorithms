@@ -20,21 +20,19 @@ public class Inversion {
         InputStreamReader reader = new InputStreamReader(stream);
         StreamTokenizer token = new StreamTokenizer(reader);
 
-        while(true){
-            while(token.nextToken() != -1){
-                switch (token.ttype){
-                    case StreamTokenizer.TT_NUMBER:
-                        tempArray[arrayIndex++] = (int)token.nval;
-                        break;
-                    default:
-                        break;
-                }
+
+        while(token.nextToken() != -1){
+            switch (token.ttype){
+                case StreamTokenizer.TT_NUMBER:
+                    tempArray[arrayIndex++] = (int)token.nval;
+                    break;
+                default:
+                    break;
             }
-            stream.close();
-            inputArray = new int[arrayIndex];
-            System.arraycopy(tempArray,0,inputArray,0,arrayIndex);
-            return;
         }
+        stream.close();
+        inputArray = new int[arrayIndex];
+        System.arraycopy(tempArray,0,inputArray,0,arrayIndex);
 
     }
 
@@ -103,5 +101,8 @@ public class Inversion {
     public static void main(String[] args)throws IOException{
         Inversion i = new Inversion("data07_inversion.txt");
         System.out.println(i.sortAndCount().inversionCount);
+        for(int j=0; j<i.sortAndCount().list.length; j++){
+            System.out.print(i.sortAndCount().list[j]+",");
+        }
     }
 }
