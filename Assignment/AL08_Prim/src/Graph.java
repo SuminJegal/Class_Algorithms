@@ -3,25 +3,30 @@
  */
 public class Graph {
 
-    String[] vertecies;
-    Edge[] edges;
+    char[] vertecies;
+    int[][] edges;
 
-    Graph(int numOfVerteciex, int numOfEdges){
-        vertecies = new String[numOfVerteciex];
-        edges = new Edge[numOfEdges];
+    Graph(int numOfVertecies){
+        vertecies = new char[numOfVertecies];
+        edges = new int[numOfVertecies][numOfVertecies];
+        for(int i=0; i<vertecies.length; i++){
+            for(int j=0; j<vertecies.length; j++){
+                edges[i][j] = Integer.MAX_VALUE;
+            }
+        }
     }
 
-    public void setVertecies(String[] )
+    //Array 'vertiecies' is always in order.
+    public void setVertecies(char[] vertecies){
+        this.vertecies = vertecies;
+    }
 
-    class Edge{
-        String startVertex;
-        String endVertex;
-        int weight;
+    public void setEdges(char start, char end, int weight) {
+        edges[getIndexOfThisVertex(start)][getIndexOfThisVertex(end)] = weight;
+        edges[getIndexOfThisVertex(end)][getIndexOfThisVertex(start)] = weight;
+    }
 
-        Edge(String startVertex, String endVertex, int weight){
-            this.startVertex = startVertex;
-            this.endVertex = endVertex;
-            this.weight = weight;
-        }
+    public int getIndexOfThisVertex(char vertex){
+        return (int)vertex - (int)(vertecies[0]);
     }
 }
